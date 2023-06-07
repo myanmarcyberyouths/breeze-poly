@@ -4,34 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $role = Role::create(['name' => 'writer']);
-        $permission = Permission::create(['name' => 'edit articles']);
-
         $user = User::find(1);
-//        $user->givePermissionTo('edit articles');
-        $user->revokePermissionTo('edit articles');
-        if ($user->can('edit articles')) {
+        $user->assignRole('user');
+        if ($user->can('edit events')) {
             return response()->json([
-                'msg' => 'yes'
+                'can edit ' => 'yes'
             ]);
         }
-
-        if (!$user->can('edit articles')) {
-            return response()->json([
-                'msg' => 'no'
-            ]);
-        }
-
-
     }
 
     /**

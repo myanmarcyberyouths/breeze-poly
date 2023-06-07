@@ -11,4 +11,5 @@ composer require laravel/passport --with-all-dependencies
 ```bash
 php artisan migrate
 php artisan migrate:fresh --seed  --seeder=RolesAndPermissionsSeeder
+php artisan db:seed
 ```
