@@ -5,6 +5,10 @@
 composer require laravel/passport --with-all-dependencies
 ```
 
+## Setup
+```bash
+composer setup
+```
 
 ## Seeding
 
