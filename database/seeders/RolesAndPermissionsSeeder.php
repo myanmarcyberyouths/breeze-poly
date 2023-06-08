@@ -17,15 +17,21 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'create events']);
-        Permission::create(['name' => 'edit events']);
-        Permission::create(['name' => 'delete events']);
+        $permissions = [
+            'create events',
+            'edit events',
+            'delete events'
+        ];
 
         $user = Role::create(['name' => 'user']);
         $organizer = Role::create(['name' => 'organizer']);
 
-        $user->givePermissionTo(Permission::all());
-        $organizer->givePermissionTo(Permission::all());
+        foreach ($permissions as $permission)
+        {
+            $createdPermission =  Permission::create(['name' => $permission]);
+            $user->givePermissionTo($createdPermission);
+            $organizer->givePermissionTo($createdPermission);
+        }
 
 
     }
