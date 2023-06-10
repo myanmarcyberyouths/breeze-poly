@@ -17,16 +17,10 @@
         "APP_ENV": "production",
         "APP_KEY": "base64:+naakOVSDszyMPC+wG+lmtfdHGNoSttFwh0NMYW466U=",
         "APP_URL": "https://laravel-vercel-sooty.vercel.app",
-
         "APP_DEBUG": "true",
-
-        "DB_CONNECTION": "pgsql",
-        "DB_HOST": "ep-soft-poetry-812794-pooler.ap-southeast-1.aws.neon.tech",
-        "DB_PORT": "5432",
-        "USERNAME": "amm834",
-        "DB_PASSWORD": "tlhLfmqH8XW0;ep-soft-poetry-812794",
-        "DATABASE": "neondb",
-
+        "DATABASE_URL": "postgres://amm834:tlhLfmqH8XW0@ep-soft-poetry-812794.ap-southeast-1.aws.neon.tech/neondb",
+        "DB_ENDPOINT": "ep-soft-poetry-812794",
+        
         "VERCEL_DEMO_MODE": "true",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
