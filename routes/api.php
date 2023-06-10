@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Auth\PassportAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,13 +15,13 @@ use App\Http\Controllers\Api\Auth\PassportAuthController;
 |
 */
 
-Route::post('register', [PassportAuthController::class,'register']);
-Route::post('login', [PassportAuthController::class,'login']);
+Route::post('register', [PassportAuthController::class, 'register']);
+Route::post('login', [PassportAuthController::class, 'login']);
 
-Route::middleware('auth:api')->group(function(){
+Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'auth'], function () {
-        Route::post('logout', [PassportAuthController::class,'logout']);
+        Route::post('logout', [PassportAuthController::class, 'logout']);
     });
 
 });
