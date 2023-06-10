@@ -29,9 +29,11 @@ Sign In and Sign Up
         {
             "meta": {
                 "status": 201,
-                "msg": "New user have been created",
+                "msg": "New user have been created"
             },
-            "data":{},
+            "data":{
+                "token": "auth token"
+            },
         }
         
 ## Sign In [/user/sign-in]
@@ -42,90 +44,67 @@ Sign In and Sign Up
 
         {
             "email":"aungmyatmoe834@gmail.com",
-            "password":"password",
+            "password":"password"
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
         {
             "meta": {
                 "status": 200,
-                "msg": "User login success",
+                "msg": "User login success"
             },
-            "data":{},
-        }
-
-
-## Questions Collection [/questions]
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+            "data":{
+                "token":"auth token"
             }
-        ]
+        }
+        
+        
+## Event [/events]
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Create an event [POST]
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "image":"image.jpg",
+            "date":"18/5/2003",
+            "time":"4:00",
+            "place":"Yangon",
+            "price":15000,
+            "about":"Dev meetup",
+            "orginizers":"Aung Myat Moe", 
+            "visibility":"public" // public, public, unlisted
         }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
+        
+          
+    + Schema
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string"
+                },
+                "choices": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 2
+                }
+              }
             }
+
+
++ Response 201
+
+        {
+            "meta":{
+                "status":201,
+            },
+            "data":{
+                "message": "Event has been created",
+            }
+        }
