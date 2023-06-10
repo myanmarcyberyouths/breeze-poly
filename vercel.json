@@ -24,7 +24,7 @@
         "DB_HOST": "ep-soft-poetry-812794-pooler.ap-southeast-1.aws.neon.tech",
         "DB_PORT": "5432",
         "USERNAME": "amm834",
-        "DB_PASSWORD": "tlhLfmqH8XW0;3Dep-mute-recipe-123456",
+        "DB_PASSWORD": "tlhLfmqH8XW0;ep-soft-poetry-812794",
         "DATABASE": "neondb",
 
         "VERCEL_DEMO_MODE": "true",
