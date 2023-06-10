@@ -21,8 +21,7 @@
         "APP_DEBUG": "true",
 
         "DB_CONNECTION": "pgsql",
-        "DATABASE_URL":"postgres://amm834:tlhLfmqH8XW0@ep-soft-poetry-812794.ap-southeast-1.aws.neon.tech/neondb",
-        "DB_ENDPOINT":"endpoint%3Dep-mute-recipe-123456",
+        "DATABASE_URL":"postgres://amm834:tlhLfmqH8XW0@ep-soft-poetry-812794.ap-southeast-1.aws.neon.tech/neondb?endpoint%3Dep-mute-recipe-123456",
         "VERCEL_DEMO_MODE": "true",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
