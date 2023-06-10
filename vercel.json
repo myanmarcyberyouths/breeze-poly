@@ -16,7 +16,7 @@
         "APP_NAME": "Vercel Laravel",
         "APP_ENV": "production",
         "APP_KEY": "base64:+naakOVSDszyMPC+wG+lmtfdHGNoSttFwh0NMYW466U=",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
         "APP_URL": "https://laravel-vercel-sooty.vercel.app",
         "DB_CONNECTION": "pgsql",
         "DB_HOST": "ep-soft-poetry-812794-pooler.ap-southeast-1.aws.neon.tech",
