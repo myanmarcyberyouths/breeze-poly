@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Validation\Rules\Password;
+use App\Enums\PronounType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -24,11 +25,14 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required',
             'date_of_birth' => 'required|date_format:d/m/Y',
-            'pronoun' => 'required',
+            'pronoun' => [
+                'required',
+                Rule::in([PronounType::He,PronounType::She,PronounType::They])
+            ],
         ];
     }
 }

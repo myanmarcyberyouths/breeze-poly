@@ -15,15 +15,13 @@ use App\Http\Controllers\Api\Auth\PassportAuthController;
 |
 */
 
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
+Route::prefix('user')->group(function () {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
+});
 
-Route::middleware('auth:api')->group(function () {
-
-    Route::group(['prefix' => 'auth'], function () {
-        Route::post('logout', [PassportAuthController::class, 'logout']);
-    });
-
+Route::middleware('auth:api')->prefix('user')->group(function () {
+    Route::post('logout', [PassportAuthController::class, 'logout']);
 });
 
 Route::apiResource('/', AuthController::class);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Models\User;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\RegisterRequest;
 
@@ -27,12 +28,37 @@ class PassportAuthController extends Controller
 
         return response()->json([
             'meta' => [
-                'status' => 201,
+                'status' => Response::HTTP_CREATED,
                 'msg' => 'New user has been created'
             ],
             'data' => [
                 'token' => $token,
             ]
-        ], Response::HTTP_CREATED);
+        ]);
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+
+            if (Hash::check($request->password, $user->password)) {
+
+                $token = $user->createToken('api token')->accessToken;
+                
+                return response()->json([
+                    'meta' => [
+                    'status' => Response::HTTP_OK,
+                    'msg' => 'User logined successfully.'
+                    ],
+                    'data' => [
+                    'token' => $token,
+                    ]
+                ]);
+                
+            }
+        }
     }
 }
+                                                                                                                                                                        
