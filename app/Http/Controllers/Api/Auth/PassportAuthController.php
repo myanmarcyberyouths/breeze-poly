@@ -24,16 +24,10 @@ class PassportAuthController extends Controller
             'pronoun' => $request->pronoun,
         ]);
 
-        $token = $user->createToken('API Token')->accessToken;
+        $token = $user->createToken('api token')->accessToken;
 
-        return response()->json([
-            'meta' => [
-                'status' => Response::HTTP_CREATED,
-                'msg' => 'New user has been created'
-            ],
-            'data' => [
-                'token' => $token,
-            ]
+        return json_response(Response::HTTP_CREATED, 'User has been created successfully', [
+            'token' => $token,
         ]);
     }
 
@@ -47,14 +41,8 @@ class PassportAuthController extends Controller
 
                 $token = $user->createToken('api token')->accessToken;
                 
-                return response()->json([
-                    'meta' => [
-                    'status' => Response::HTTP_OK,
-                    'msg' => 'User logined successfully.'
-                    ],
-                    'data' => [
+                return json_response(Response::HTTP_OK, 'User has been created successfully', [
                     'token' => $token,
-                    ]
                 ]);
                 
             }
