@@ -46,7 +46,7 @@ class EventController extends Controller
             ->additional([
                 'meta' => [
                     'status' => 201,
-                    'msg' => 'Event have been created successfully',
+                    'msg' => 'Event has been created successfully',
                 ]
             ]);
     }
