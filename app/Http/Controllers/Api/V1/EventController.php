@@ -86,7 +86,7 @@ class EventController extends Controller
             'meta' => [
                 'status' => 200,
             ],
-            'msg' => 'Event has been updated'
+            'msg' => 'Event has been updated successfully'
         ]);
     }
 
