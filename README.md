@@ -12,6 +12,13 @@ composer require laravel/passport --with-all-dependencies
 composer setup
 ```
 
+# Exposing Server
+
+```bash
+sudo php artisan serve --host 192.168.1.4 --port 80
+ sudo php artisan serve --host 0.0.0.0  --port 80
+```
+
 # PHP Server Setup
 
 We will need to install `apfd` to handle form data in `PUT` and `PATCH` method.
