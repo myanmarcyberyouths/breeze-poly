@@ -20,8 +20,15 @@ Route::prefix('user')->group(function () {
     Route::post('login', [PassportAuthController::class, 'login']);
 });
 
-Route::middleware('auth:api')->prefix('user')->group(function () {
-    Route::post('logout', [PassportAuthController::class, 'logout']);
+Route::middleware('auth:api')->group(function () {
+    
+    Route::get('events', [EventController::class, 'index']);
+    Route::post('events/store', [EventController::class, 'store']);
+    Route::get('events/show', [EventController::class, 'show']);
+    Route::post('events/update', [EventController::class, 'update']);
+    Route::delete('events/delete', [EventController::class, 'destroy']);
+
+    Route::post('user/logout', [PassportAuthController::class, 'logout']);
 });
 
 Route::apiResource('/', AuthController::class);
