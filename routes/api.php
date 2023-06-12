@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\Auth\PassportAuthController;
 
 /*
@@ -22,13 +21,6 @@ Route::prefix('user')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    
-    Route::get('events', [EventController::class, 'index']);
-    Route::post('events/store', [EventController::class, 'store']);
-    Route::get('events/show', [EventController::class, 'show']);
-    Route::post('events/update', [EventController::class, 'update']);
-    Route::delete('events/delete', [EventController::class, 'destroy']);
-
     Route::post('user/logout', [PassportAuthController::class, 'logout']);
 });
 
