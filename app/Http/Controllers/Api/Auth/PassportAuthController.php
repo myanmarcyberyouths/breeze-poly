@@ -41,7 +41,7 @@ class PassportAuthController extends Controller
 
                 $token = $user->createToken('api token')->accessToken;
                 
-                return json_response(Response::HTTP_OK, 'User has been created successfully', [
+                return json_response(Response::HTTP_OK, 'User has logged in successfully', [
                     'token' => $token,
                 ]);
                 
