@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class PassportAuthController extends Controller
 {
@@ -40,13 +40,12 @@ class PassportAuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
 
                 $token = $user->createToken('api token')->accessToken;
-                
+
                 return json_response(Response::HTTP_OK, 'User has logged in successfully', [
                     'token' => $token,
                 ]);
-                
+
             }
         }
     }
 }
-                                                                                                                                                                        
