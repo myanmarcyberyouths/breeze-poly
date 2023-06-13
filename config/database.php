@@ -75,11 +75,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => 'require',
-            'options' => [
-                'sslmode' => 'require',
-                'endpoint' => env('DB_ENDPOINT', 'ep-soft-poetry-812794'),
-            ],
+            'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
