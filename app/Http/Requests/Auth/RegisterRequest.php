@@ -24,15 +24,12 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|min:3|max:20',
             'email' => 'required|string|email',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required',
-            'date_of_birth' => 'required|date_format:d/m/Y',
-            'pronoun' => [
-                'required',
-                Rule::in([PronounType::He,PronounType::She,PronounType::They])
-            ],
+            'date_of_birth' => 'required|date_format:d-m-Y',
+            'pronoun' => 'required|in:he,she,they',
         ];
     }
 }

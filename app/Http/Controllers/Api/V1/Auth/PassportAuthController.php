@@ -7,45 +7,44 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class PassportAuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $dateOfBirth = \DateTime::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->input('password')),
-            'password_confirmation'  =>  Hash::make($request->input('password_confirmation')),
-            'date_of_birth' => $dateOfBirth,
-            'pronoun' => $request->pronoun,
-        ]);
-
-        $token = $user->createToken('api token')->accessToken;
+        $user = User::create($data);
+        $token = $user->createToken('access_token')->accessToken;
 
         return json_response(Response::HTTP_CREATED, 'User has been created successfully', [
-            'token' => $token,
+            'access_token' => $token,
         ]);
     }
 
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-
-        if ($user) {
-
-            if (Hash::check($request->password, $user->password)) {
-
-                $token = $user->createToken('api token')->accessToken;
-
-                return json_response(Response::HTTP_OK, 'User has logged in successfully', [
-                    'token' => $token,
-                ]);
-
-            }
+        $validatedUser = $request->validated();
+        $auth = auth()->attempt($validatedUser);
+        if (!$auth) {
+            return json_response(Response::HTTP_UNPROCESSABLE_ENTITY, 'Invalid credentials');
         }
+
+        $token = auth()->user()->createToken('access_token')->accessToken;
+
+        return json_response(Response::HTTP_CREATED, 'User has been logged in successfully', [
+            'access_token' => $token,
+        ]);
+
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return \response()->noContent();
     }
 }
