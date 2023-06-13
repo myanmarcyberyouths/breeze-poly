@@ -24,7 +24,7 @@
         "DB_DATABASE": "breeze",
         "DB_USERNAME": "eul9p17dskvmj2bpj2qv",
         "DB_PASSWORD": "pscale_pw_gWIACc0hcfvTjGZZ77gWvmvmozdta2pFar8qfhfjKj0",
-        "MYSQL_ATTR_SSL_CA": "/etc/ssl/certs/ca-certificates.crt",
+        "MYSQL_ATTR_SSL_CA": "/etc/pki/tls/certs/ca-bundle.crt",
         "VERCEL_DEMO_MODE": "true",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
