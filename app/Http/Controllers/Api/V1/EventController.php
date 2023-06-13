@@ -40,15 +40,17 @@ class EventController extends Controller
 
         $newEvent['image'] = $imageUrl;
 
-        $event = Event::create($newEvent);
+        return $request->all();
 
-        return (new EventResource($event))
-            ->additional([
-                'meta' => [
-                    'status' => 201,
-                    'msg' => 'Event has been created successfully',
-                ]
-            ]);
+//        $event = Event::create($newEvent);
+
+//        return (new EventResource($event))
+//            ->additional([
+//                'meta' => [
+//                    'status' => 201,
+//                    'msg' => 'Event has been created successfully',
+//                ]
+//            ]);
     }
 
     /**
