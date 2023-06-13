@@ -24,7 +24,7 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', new Base64ValidationRule()],
+            'image' => ['nullable', new Base64ValidationRule],
             'date' => 'required|date_format:d-m-Y',
             'time' => 'required|date_format:H:i:s',
             'place' => 'required',
