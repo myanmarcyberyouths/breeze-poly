@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\PassportAuthController;
 use App\Http\Controllers\Api\V1\EventController;
 use Illuminate\Support\Facades\Route;
 
