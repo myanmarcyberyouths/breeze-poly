@@ -23,8 +23,13 @@ class Base64ValidationRule implements ValidationRule
             $fail('The :attribute must be valid base64');
         }
 
-        if (isset($matches[2]) && !base64_decode($matches[2], true)) {
-            $fail('The :attribute must be type of base64');
+        if (isset($matches[2]) && !$this->isBase64($matches[2])) {
+            $fail('The :attribute must be a valid base64 format');
         }
+    }
+
+    public function isBase64($base64): bool
+    {
+        return base64_encode(base64_decode($base64, true)) === $base64;
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
-class PassportAuthController extends Controller
+class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
