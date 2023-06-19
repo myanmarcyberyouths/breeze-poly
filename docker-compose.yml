@@ -1,43 +1,69 @@
 version: "3"
+
 services:
-  app:
+  nginx:
     build:
       context: .
-      dockerfile: docker/Dockerfile
-    container_name: breeze_app
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - db
-    environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_DATABASE=breeze-db
-      - DB_USERNAME=admin
-      - DB_PASSWORD=admin1234
-  db:
-    image: postgres
-    container_name: breeze_db
+      dockerfile: docker/nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-breeze}
+    container_name: breeze_nginx
     ports:
-      - "5432:5432"
+      - 80:80
+    volumes:
+      - .:/var/www/html:delegated
+    depends_on:
+      - php
+      - pgsql
+      - redis
+    networks:
+      - breeze-net
+  pgsql:
+    image: postgres
+    container_name: breeze_pgsql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_DB=breeze-db
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_PASSWORD=Admin1234
+    networks:
+      - breeze-net
+  php:
+    build:
+      context: .
+      dockerfile: docker/php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-breeze}
+    container_name: breeze_php
     volumes:
-      - dev-db:/var/lib/pgsql
-  nginx:
-    image: nginx:alpine
-    container_name: breeze_nginx
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - .:/var/www/html:delegated
+    environment:
+      - APP_NAME=Breeze
+      - APP_ENV=local
+      - APP_KEY=base64:jCgOSeI4TNg5yMgBNnGnzgPy/9sVXHL60z9cyKJlDpw=
+      - DB_CONNECTION=pgsql
+      - DB_HOST=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=breeze-db
+      - DB_USERNAME=admin
+      - DB_PASSWORD=Admin1234
+    networks:
+      - breeze-net
+  redis:
+    image: redis:alpine
+    container_name: breeze_redis
+    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - app
+      - 6379:9379
+    networks:
+      - breeze-net
 
-volumes:
-  dev-db:
-    driver: local
+networks:
+  breeze-net:
