@@ -12,11 +12,17 @@ composer require laravel/passport --with-all-dependencies
 composer setup
 ```
 
+## Docker Setup
+```bash
+docker-compose build
+docker exec breeze_app composer setup
+```
+
 # Exposing Server
 
 ```bash
 sudo php artisan serve --host 192.168.1.4 --port 80
- sudo php artisan serve --host 0.0.0.0  --port 80
+sudo php artisan serve --host 0.0.0.0  --port 80
 ```
 
 # PHP Server Setup
