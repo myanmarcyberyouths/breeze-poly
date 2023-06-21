@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class InterestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'username' => $this->username,
-            'profile_image' => $this->getFirstMediaUrl('profile-images'),
-            'email' => $this->email,
-            'date_of_birth' => $this->date_of_birth,
-            'interests' => InterestResource::collection($this->interests),
+            'name' => $this->name,
         ];
     }
-
 }

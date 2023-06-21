@@ -42,6 +42,7 @@ class User extends Authenticatable implements HasMedia
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast.
      *

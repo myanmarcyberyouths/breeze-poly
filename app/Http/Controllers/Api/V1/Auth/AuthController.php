@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
+use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -19,10 +20,12 @@ class AuthController extends Controller
             $data = $request->validated();
             $data['password'] = Hash::make($data['password']);
             $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
+            $data['username'] = 'user_' . time();
 
             $user = User::create($data);
+
             $user->addMediaFromBase64($data['profile_image'])
-                ->toMediaCollection('profile_images');
+                ->toMediaCollection('profile-images');
 
             $user->interests()->attach($data['interests']);
 
@@ -52,10 +55,18 @@ class AuthController extends Controller
 
     }
 
+    public function getAuthUser()
+    {
+        $user = auth()->user();
+        $user->load('interests:id,name');
+        return new UserResource($user);
+    }
+
     public function logout()
     {
         auth()->user()->tokens()->delete();
         auth()->user()->interests()->detach();
         return \response()->noContent();
     }
+
 }

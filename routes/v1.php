@@ -17,7 +17,11 @@ Route::prefix('users')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('users/sign-out', [AuthController::class, 'logout']);
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/me', [AuthController::class, 'getAuthUser']);
+
+        Route::post('/sign-out', [AuthController::class, 'logout']);
+    });
 });
 
 Route::apiResource('/events', EventController::class);

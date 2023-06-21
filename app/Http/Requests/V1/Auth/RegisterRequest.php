@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Auth;
 
 use App\Enums\PronounType;
+use App\Rules\Base64ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -30,6 +31,7 @@ class RegisterRequest extends FormRequest
             'date_of_birth' => 'required|date_format:d-m-Y',
             'pronoun' => 'required|in:he,she,they',
             'interests' => 'required|array',
+            'profile_image' => ['required',new Base64ValidationRule()],
         ];
     }
 }
