@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-breeze}
+    container_name: breeze_nginx
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html:delegated
+    depends_on:
+      - php
+      - pgsql
+      - redis
+    networks:
+      - breeze-net
+  pgsql:
+    image: postgres
+    container_name: breeze_pgsql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=breeze-db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Admin1234
+    networks:
+      - breeze-net
+  php:
+    build:
+      context: .
+      dockerfile: docker/php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-breeze}
+    container_name: breeze_php
+    volumes:
+      - .:/var/www/html:delegated
+    environment:
+      - APP_NAME=Breeze
+      - APP_ENV=local
+      - APP_KEY=base64:jCgOSeI4TNg5yMgBNnGnzgPy/9sVXHL60z9cyKJlDpw=
+      - DB_CONNECTION=pgsql
+      - DB_HOST=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=breeze-db
+      - DB_USERNAME=admin
+      - DB_PASSWORD=Admin1234
+    networks:
+      - breeze-net
+  redis:
+    image: redis:alpine
+    container_name: breeze_redis
+    restart: unless-stopped
+    ports:
+      - 6379:9379
+    networks:
+      - breeze-net
+
+networks:
+  breeze-net:
