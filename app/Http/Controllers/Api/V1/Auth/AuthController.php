@@ -19,6 +19,8 @@ class AuthController extends Controller
         $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
 
         $user = User::create($data);
+        $user->interests()->attach($data['interests']);
+
         $token = $user->createToken('access_token')->accessToken;
 
         return json_response(Response::HTTP_CREATED, 'User has been created successfully', [
@@ -45,6 +47,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->user()->tokens()->delete();
+        auth()->user()->interests()->detach();
         return \response()->noContent();
     }
 }

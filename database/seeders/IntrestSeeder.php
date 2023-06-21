@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Intrest;
+use App\Models\Interest;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,6 +25,6 @@ class IntrestSeeder extends Seeder
         ];
 
 
-        Intrest::insert($intrests);
+        Interest::insert($intrests);
     }
 }
