@@ -3,10 +3,9 @@
 namespace App\Http\Requests\V1;
 
 use App\Rules\Base64ValidationRule;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class EventRequest extends FormRequest
+class EventUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +18,7 @@ class EventRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -31,7 +30,7 @@ class EventRequest extends FormRequest
             'information' => 'required|string',
             'visibility' => 'nullable|in:public,private,unlisted',
             'is_shareable' => 'nullable|boolean',
-            'image' => ['required', new Base64ValidationRule],
+            'image' => ['nullable', new Base64ValidationRule],
         ];
     }
 }

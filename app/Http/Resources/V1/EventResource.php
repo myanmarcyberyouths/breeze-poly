@@ -16,13 +16,14 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image,
             'date' => $this->date,
             'time' => $this->time,
             'place' => $this->place,
-            'price' => $this->price,
-            'about' => $this->about,
+            'ticket_price' => $this->ticket_price,
+            'information' => $this->information,
             'visibility' => $this->visibility,
+            'is_shareable' => $this->is_shareable,
+            'image' => $this->getFirstMediaUrl('event-images'),
         ];
     }
 

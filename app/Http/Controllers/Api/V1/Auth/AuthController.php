@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\V1\Auth\LoginRequest;
+use App\Http\Requests\V1\Auth\RegisterRequest;
+use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -14,18 +15,28 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
+        try {
 
-        $user = User::create($data);
-        $user->interests()->attach($data['interests']);
+            $data = $request->validated();
+            $data['password'] = Hash::make($data['password']);
+            $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
+            $data['username'] = 'user_' . time();
 
-        $token = $user->createToken('access_token')->accessToken;
+            $user = User::create($data);
 
-        return json_response(Response::HTTP_CREATED, 'User has been created successfully', [
-            'access_token' => $token,
-        ]);
+            $user->addMediaFromBase64($data['profile_image'])
+                ->toMediaCollection('profile-images');
+
+            $user->interests()->attach($data['interests']);
+
+            $token = $user->createToken('access_token')->accessToken;
+
+            return json_response(Response::HTTP_CREATED, 'User has been created successfully', [
+                'access_token' => $token,
+            ]);
+        } catch (\Exception $exception) {
+            return json_response(Response::HTTP_INTERNAL_SERVER_ERROR, 'Something went wrong');
+        }
     }
 
     public function login(LoginRequest $request)
@@ -44,10 +55,18 @@ class AuthController extends Controller
 
     }
 
+    public function getAuthUser()
+    {
+        $user = auth()->user();
+        $user->load('interests:id,name');
+        return new UserResource($user);
+    }
+
     public function logout()
     {
         auth()->user()->tokens()->delete();
         auth()->user()->interests()->detach();
         return \response()->noContent();
     }
+
 }

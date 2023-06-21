@@ -2,21 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
+    use InteractsWithMedia;
 
     protected $fillable = [
-        'image',
+        'date',
         'time',
         'place',
-        'price',
-        'about',
+        'ticket_price',
+        'information',
         'visibility',
-        'date',
+        'is_shareable',
     ];
+
+    protected $casts = [
+        'is_shareable' => 'boolean',
+    ];
+
 }

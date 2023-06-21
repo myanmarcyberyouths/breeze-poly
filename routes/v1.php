@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('users')->group(function () {
     Route::post('/validate-email', [EmailValidationController::class, 'validateEmail']);
+    Route::post('/validate-profile-image', [EmailValidationController::class, 'validateProfileImage']);
     Route::get('/interests', [InterestController::class, 'index']);
 
     Route::post('/sign-up', [AuthController::class, 'register']);
@@ -16,7 +17,11 @@ Route::prefix('users')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('users/sign-out', [AuthController::class, 'logout']);
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/me', [AuthController::class, 'getAuthUser']);
+
+        Route::post('/sign-out', [AuthController::class, 'logout']);
+    });
 });
 
 Route::apiResource('/events', EventController::class);

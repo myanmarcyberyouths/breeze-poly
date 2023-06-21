@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('interest_id')->cascadeOnDelete();
             $table->foreignUlid('user_id')->cascadeOnDelete();
+            $table->index(['interest_id', 'user_id']);
             $table->timestamps();
         });
     }
