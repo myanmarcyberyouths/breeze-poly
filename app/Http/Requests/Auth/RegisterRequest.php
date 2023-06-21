@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
             'password_confirmation' => 'required',
             'date_of_birth' => 'required|date_format:d-m-Y',
             'pronoun' => 'required|in:he,she,they',
+            'interests' => 'required|array',
         ];
     }
 }
