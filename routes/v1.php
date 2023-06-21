@@ -1,13 +1,17 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
+use App\Http\Controllers\Api\V1\Auth\InterestController;
 use App\Http\Controllers\Api\V1\EventController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('users')->group(function () {
-    Route::post('sign-up', [AuthController::class, 'register']);
-    Route::post('sign-in', [AuthController::class, 'login']);
+    Route::post('/sign-up', [AuthController::class, 'register']);
+    Route::post('/sign-in', [AuthController::class, 'login']);
+    Route::post('/validate-email', [EmailValidationController::class, 'validateEmail']);
+    Route::get('/interests', [InterestController::class, 'index']);
 });
 
 Route::middleware('auth:api')->group(function () {
