@@ -11,18 +11,18 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->ulid('id')->unique();
-            $table->string('image')->nullable();
+            $table->id();
             $table->date('date');
             $table->time('time');
             $table->string('place');
-            $table->double('price');
-            $table->text('about');
+            $table->double('ticket_price');
+            $table->text('information');
             $table->enum('visibility', [
                 'public',
                 'private',
                 'unlisted',
             ])->default('public');
+           $table->boolean('is_shareable')->default(true);
             $table->timestamps();
         });
     }

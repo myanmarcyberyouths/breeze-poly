@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Interest;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-
         $this->call([
             EventSeeder::class,
             IntrestSeeder::class,
         ]);
+        User::factory()->count(10)
+            ->hasAttached(
+                Interest::all()->random(3),
+            )
+            ->create();
     }
 }

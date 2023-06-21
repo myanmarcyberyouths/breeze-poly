@@ -18,13 +18,13 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'image' => fake()->imageUrl,
             'date' => fake()->date(),
             'time' => fake()->time(),
             'place' => collect(['Yangon', 'Mandalay', 'Letpadan'])->random(),
-            'price' => fake()->numberBetween(0, 3000),
-            'about' => fake()->realText(200),
+            'ticket_price' => fake()->numberBetween(0, 3000),
+            'information' => fake()->realText(200),
             'visibility' => collect(['public', 'private', 'unlisted'])->random(),
+            'is_shareable' => fake()->boolean(),
         ];
     }
 }

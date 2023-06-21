@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Interest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -25,6 +26,7 @@ class UserFactory extends Factory
             'pronoun' => collect(['he', 'she', 'they'])->random(),
             'remember_token' => Str::random(10),
             'date_of_birth' => fake()->date('Y/m/d'),
+            'username' => fake()->unique()->userName(),
         ];
     }
 

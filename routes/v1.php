@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('users')->group(function () {
     Route::post('/validate-email', [EmailValidationController::class, 'validateEmail']);
+    Route::post('/validate-profile-image', [EmailValidationController::class, 'validateProfileImage']);
     Route::get('/interests', [InterestController::class, 'index']);
 
     Route::post('/sign-up', [AuthController::class, 'register']);

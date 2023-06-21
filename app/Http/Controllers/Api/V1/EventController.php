@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\EventRequest;
+use App\Http\Requests\V1\EventUpdateRequest;
 use App\Http\Resources\V1\EventResource;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use PHPUnit\Event\EventCollection;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\InvalidBase64Data;
 
 class EventController extends Controller
 {
@@ -18,7 +21,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::paginate();
+        $events = Event::latest()->paginate(5);
         return EventResource::collection($events);
     }
 
@@ -27,30 +30,15 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
-        $newEvent = $request->validated();
+        $data = $request->validated();
+        $data['date'] = date('Y-m-d', strtotime($data['date']));
+        $data['time'] = date('H:i:s', strtotime($data['time']));
 
-        $imageUrl = '';
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = Str::uuid()->toString() . '.' . $extension;
-            $imageUrl = Storage::putFileAs('public/images', $file, $filename);
-            $imageUrl = asset(Storage::url($imageUrl));
-        }
+        $event = Event::create($data);
+        $event->addMediaFromBase64($data['image'])
+            ->toMediaCollection('event-images');
 
-        $newEvent['image'] = $imageUrl;
-
-        return $request->all();
-
-//        $event = Event::create($newEvent);
-
-//        return (new EventResource($event))
-//            ->additional([
-//                'meta' => [
-//                    'status' => 201,
-//                    'msg' => 'Event has been created successfully',
-//                ]
-//            ]);
+        return new EventResource($event);
     }
 
     /**
@@ -64,32 +52,21 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(EventRequest $request, Event $event)
+    public function update(EventUpdateRequest $request, Event $event)
     {
         $data = $request->validated();
+        $data['date'] = date('Y-m-d', strtotime($data['date']));
+        $data['time'] = date('H:i:s', strtotime($data['time']));
 
-        $imageUrl = '';
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = Str::uuid()->toString() . '.' . $extension;
-            $imageUrl = Storage::putFileAs('public/images', $file, $filename);
-            $imageUrl = asset(Storage::url($imageUrl));
+        $event->update($data);
+
+        if (isset($data['image'])) {
+            $event->clearMediaCollection('event-images');
+            $event->addMediaFromBase64($data['image'])
+                ->toMediaCollection('event-images');
         }
 
-        $updatedEvent = [
-            ...$data,
-            'image' => $imageUrl === '' ? $data['image_url'] : $imageUrl,
-        ];
-
-        $event->update($updatedEvent);
-
-        return response()->json([
-            'meta' => [
-                'status' => 200,
-            ],
-            'msg' => 'Event has been updated'
-        ]);
+        return new EventResource($event);
     }
 
     /**

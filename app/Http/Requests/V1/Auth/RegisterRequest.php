@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\V1\Auth;
 
 use App\Enums\PronounType;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
