@@ -13,6 +13,7 @@ composer setup
 ```
 
 ## Docker Setup
+
 ```bash
 docker-compose build
 docker exec breeze_app composer setup
@@ -38,4 +39,24 @@ Add the following extension to the `php.ini`
 
 ```bash
 extension=apfd.so
+```
+
+# Vercel Setup
+
+- `/(.*)` forward to `/`
+- `/api/(.*)` forward to `/api`
+
+```json
+{
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/index.php"
+        }
+    ]
+}
 ```
