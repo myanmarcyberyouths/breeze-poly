@@ -49,7 +49,7 @@ class AuthController extends Controller
 
         $token = auth()->user()->createToken('access_token')->accessToken;
 
-        return json_response(Response::HTTP_CREATED, 'User has been logged in successfully', [
+        return json_response(200, 'User has been logged in successfully', [
             'access_token' => $token,
         ]);
 
