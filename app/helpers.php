@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-if (!function_exists('json_response'))
-{
-    function json_response($status, $message, $data = null)
+use Illuminate\Http\JsonResponse;
+
+if (!function_exists('json_response')) {
+    function json_response($status, $message, $data = null): JsonResponse
     {
         return response()->json([
             'meta' => [
