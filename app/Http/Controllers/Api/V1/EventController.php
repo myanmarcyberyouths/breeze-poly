@@ -7,12 +7,8 @@ use App\Http\Requests\V1\EventRequest;
 use App\Http\Requests\V1\EventUpdateRequest;
 use App\Http\Resources\V1\EventResource;
 use App\Models\Event;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded;
-use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
-use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
-use Spatie\MediaLibrary\MediaCollections\Exceptions\InvalidBase64Data;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller
 {
@@ -22,7 +18,9 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::latest()->paginate(5);
-        return EventResource::collection($events);
+        return Cache::store('redis')->remember('events', 60, function () use ($events) {
+            return EventResource::collection($events);
+        });
     }
 
     /**
@@ -46,7 +44,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return new EventResource($event);
+        return Cache::store('redis')->remember('event', 60, function () use ($event) {
+            return new EventResource($event);
+        });
     }
 
     /**
@@ -75,6 +75,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->delete();
+        Cache::delete('event');
         return response()->noContent();
     }
 }
