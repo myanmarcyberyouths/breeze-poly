@@ -9,6 +9,7 @@ use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -59,13 +60,17 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         $user->load('interests:id,name');
-        return new UserResource($user);
+
+        return Cache::store('redis')->remember(auth()->user()->username, 60 * 60 * 24, function () use ($user) {
+            return new UserResource($user);
+        });
     }
 
     public function logout()
     {
         auth()->user()->tokens()->delete();
         auth()->user()->interests()->detach();
+        Cache::delete(auth()->user()->username);
         return \response()->noContent();
     }
 
