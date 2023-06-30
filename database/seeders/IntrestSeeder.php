@@ -13,18 +13,19 @@ class IntrestSeeder extends Seeder
      */
     public function run(): void
     {
-        $intrests = [
+        $interests = [
             ['name' => 'Fun & Casual'],
             ['name' => ' Social & Networking'],
-            ['name' => ' Weekend Getaway '],
+            ['name' => ' Weekend Getaway'],
             ['name' => 'Art & Design'],
-            ['name' => 'Technology '],
+            ['name' => 'Technology'],
             ['name' => 'Education'],
             ['name' => 'Sports'],
             ['name' => 'Charity'],
+            ['name' => 'Music & Life'],
         ];
 
 
-        Interest::insert($intrests);
+        Interest::insert($interests);
     }
 }

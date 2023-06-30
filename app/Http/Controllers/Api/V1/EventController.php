@@ -17,10 +17,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::latest()->paginate(5);
-        return Cache::store('redis')->remember('events', 60, function () use ($events) {
-            return EventResource::collection($events);
-        });
+        $events = Event::latest('id')->paginate(5);
+
+        return Cache::store('redis')->remember('events', 60, fn() => EventResource::collection($events));
     }
 
     /**
