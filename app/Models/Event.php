@@ -13,6 +13,7 @@ class Event extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
+        'title',
         'date',
         'time',
         'place',
