@@ -17,11 +17,18 @@ Route::prefix('users')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
+
     Route::group(['prefix' => 'users'], function () {
         Route::get('/me', [AuthController::class, 'getAuthUser']);
 
         Route::post('/sign-out', [AuthController::class, 'logout']);
     });
+    
+    Route::group(['prefix' => 'event'], function () {
+        Route::post('save',[EventController::class,'save']);
+    });
+
 });
 
 Route::apiResource('/events', EventController::class);
+
