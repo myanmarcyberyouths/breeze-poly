@@ -20,7 +20,7 @@ class EventController extends Controller
         $page = request()->get('page', 1);
         $events = Event::latest('id')->paginate(10);
 
-        return Cache::store('redis')->remember("events_page_$page", 60, fn() => EventResource::collection($events));
+        return Cache::store('redis')->remember("events_page_$page", 3, fn() => EventResource::collection($events));
     }
 
     /**
