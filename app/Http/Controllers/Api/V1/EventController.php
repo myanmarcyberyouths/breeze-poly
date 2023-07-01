@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\EventRequest;
-use App\Http\Requests\V1\EventUpdateRequest;
-use App\Http\Resources\V1\EventResource;
+
 use App\Models\Event;
+use App\Models\SaveEvent;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Http\Requests\V1\EventRequest;
+use App\Http\Resources\V1\EventResource;
+use App\Http\Requests\V1\EventSaveRequest;
+use App\Http\Requests\V1\EventUpdateRequest;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -77,5 +81,21 @@ class EventController extends Controller
         $event->delete();
         Cache::delete('event');
         return response()->noContent();
+    }
+
+    public function save(EventSaveRequest $request)
+    {
+        SaveEvent::create([
+            'user_id' => auth()->user()->id,
+            'event_id' => $request->event_id
+        ]);
+
+    $user = User::find(auth()->user()->id);
+
+    foreach ($user->events as $event) {
+        $information = $event->event->information;
+        dump($information);
+    }
+        return json_response(Response::HTTP_CREATED, 'Event has been saved successfully');
     }
 }
