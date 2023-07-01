@@ -35,7 +35,7 @@ class Event extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function saveEvents(): HasMany
+    public function events(): HasMany
     {
         return $this->hasMany(SaveEvent::class,'event_id','id');
     }

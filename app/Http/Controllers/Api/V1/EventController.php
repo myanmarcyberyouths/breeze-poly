@@ -90,12 +90,12 @@ class EventController extends Controller
             'event_id' => $request->event_id
         ]);
 
-    // $user = User::find(auth()->user()->id);
+    $user = User::find(auth()->user()->id);
 
-    // foreach ($user->saveEvents as $saveEvent) {
-    //     $information = $saveEvent->event->information;
-    //     dump($information);
-    // }
+    foreach ($user->events as $event) {
+        $information = $event->event->information;
+        dump($information);
+    }
         return json_response(Response::HTTP_CREATED, 'Event has been saved successfully');
     }
 }

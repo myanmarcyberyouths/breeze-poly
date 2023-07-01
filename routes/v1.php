@@ -24,7 +24,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/sign-out', [AuthController::class, 'logout']);
     });
     
-    Route::group(['prefix' => 'event'], function () {
+    Route::group(['prefix' => 'events'], function () {
         Route::post('save',[EventController::class,'save']);
     });
 
