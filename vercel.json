@@ -16,6 +16,13 @@
             "dest": "/api/index.php"
         }
     ],
+    "scripts": {
+        "vercel": [
+            "@php -v",
+            "npm -v",
+            "@composer serve"
+        ]
+    },
     "outputDirectory": "public/build",
     "env": {
         "APP_NAME": "Breeze",
