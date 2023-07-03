@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "php artisan octane:start --server=octane",
+        "dev": "vite",
         "build": "vite build"
     },
     "devDependencies": {

@@ -68,6 +68,7 @@
         "test": "pest",
         "vercel": {
             "functions-build": "@php artisan octane:install --server=roadrunner",
+            "functions-start": "@php artisan octane:start --server=roadrunner"
         }
     },
     "extra": {
