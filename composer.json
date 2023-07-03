@@ -65,7 +65,7 @@
         ],
         "test": "pest",
         "vercel": {
-            "functions-start": "@php artisan octane:start --server=swoole"
+            "functions-start": "@php artisan octane:start"
         }
     },
     "extra": {
