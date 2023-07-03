@@ -46,6 +46,7 @@
         "REDIS_HOST": "factual-kingfish-37678.upstash.io",
         "REDIS_PASSWORD": "ca9174ed0ec8445389877bafd18b00e4",
         "REDIS_PORT": "37678",
+        "REDIS_CACHE_DB": "0",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp/views",
