@@ -63,7 +63,13 @@
             "php artisan migrate:fresh --seed",
             "php artisan passport:install --force"
         ],
-        "test": "pest"
+        "test": "pest",
+        "vercel": {
+            "build": "@php artisan octane:install && npm install && npm run dev && php artisan octane:build && php artisan octane:start",
+            "dev": "@php artisan octane:install && npm install && npm run dev && php artisan octane:start",
+            "functions-build": "@php artisan octane:install && npm install && npm run dev && php artisan octane:build",
+            "functions-start": "@php artisan octane:start"
+        }
     },
     "extra": {
         "laravel": {
