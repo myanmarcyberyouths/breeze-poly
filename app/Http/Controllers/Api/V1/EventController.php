@@ -13,6 +13,7 @@ use App\Http\Resources\V1\EventResource;
 use App\Http\Requests\V1\EventSaveRequest;
 use App\Http\Requests\V1\EventUpdateRequest;
 use App\Models\User;
+use LDAP\Result;
 
 class EventController extends Controller
 {
@@ -90,12 +91,14 @@ class EventController extends Controller
             'event_id' => $request->event_id
         ]);
 
-    $user = User::find(auth()->user()->id);
-
-    foreach ($user->events as $event) {
-        $information = $event->event->information;
-        dump($information);
-    }
         return json_response(Response::HTTP_CREATED, 'Event has been saved successfully');
+    }
+
+    public function showUserEvents()
+    {
+        $users = User::with('events')->get();
+
+        return json_response(Response::HTTP_OK,"User's events has been retrieved successfully",$users);
+  
     }
 }

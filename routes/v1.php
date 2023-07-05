@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
     
     Route::group(['prefix' => 'events'], function () {
         Route::post('save',[EventController::class,'save']);
+        Route::get('/show/userEvents',[EventController::class,'showUserEvents']);
     });
 
 });

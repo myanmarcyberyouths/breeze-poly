@@ -18,8 +18,9 @@ class SaveEvent extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function event()
+    public function event(): BelongsTo
     {
-    return $this->belongsTo(Event::class, 'event_id');
+        return $this->belongsTo(Event::class);
     }
+
 }
