@@ -24,7 +24,7 @@ class EventController extends Controller
         $page = request()->get('page', 1);
         $events = Event::latest('id')->paginate(10);
 
-        return Cache::store('redis')->remember("events_page_$page", 3, fn() => EventResource::collection($events));
+        return Cache::store('redis')->remember("events_page_$page", 3, fn () => EventResource::collection($events));
     }
 
     /**
@@ -48,7 +48,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return Cache::store('redis')->remember('event', 60, function () use ($event) {
+        return Cache::store('redis')->remember("event_$event->id", 60, function () use ($event) {
             return new EventResource($event);
         });
     }
@@ -79,7 +79,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->delete();
-        Cache::delete('event');
+        Cache::delete("event_$event->id");
         return response()->noContent();
     }
 
@@ -90,12 +90,12 @@ class EventController extends Controller
             'event_id' => $request->event_id
         ]);
 
-    $user = User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
 
-    foreach ($user->events as $event) {
-        $information = $event->event->information;
-        dump($information);
-    }
+        foreach ($user->events as $event) {
+            $information = $event->event->information;
+            dump($information);
+        }
         return json_response(Response::HTTP_CREATED, 'Event has been saved successfully');
     }
 }
