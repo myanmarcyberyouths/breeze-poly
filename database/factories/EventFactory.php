@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,6 +27,7 @@ class EventFactory extends Factory
             'information' => fake()->realText(200),
             'visibility' => collect(['public', 'private', 'unlisted'])->random(),
             'is_shareable' => fake()->boolean(),
+            'user_id' => User::factory()->create(),
         ];
     }
 }

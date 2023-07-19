@@ -23,7 +23,8 @@ return new class extends Migration {
                 'private',
                 'unlisted',
             ])->default('public');
-           $table->boolean('is_shareable')->default(true);
+            $table->boolean('is_shareable')->default(true);
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

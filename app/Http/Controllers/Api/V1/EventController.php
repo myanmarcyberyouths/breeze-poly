@@ -16,14 +16,19 @@ use App\Models\User;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $page = request()->get('page', 1);
-        $events = Event::latest('id')->paginate(5);
-
+        $events = Event::with('user')->latest('id')->paginate(5);
         return Cache::remember("events_page_$page", 3, fn() => EventResource::collection($events));
     }
 
@@ -32,9 +37,11 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
+
         $data = $request->validated();
         $data['date'] = date('Y-m-d', strtotime($data['date']));
         $data['time'] = date('H:i:s', strtotime($data['time']));
+        $data['user_id'] = auth()->user()->id;
 
         $event = Event::create($data);
         $event->addMediaFromBase64($data['image'])
@@ -48,9 +55,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return Cache::store('redis')->remember("event_$event->id", 60, function () use ($event) {
-            return new EventResource($event);
-        });
+        return Cache::remember("event_$event->id", 60, fn() => new EventResource($event));
     }
 
     /**

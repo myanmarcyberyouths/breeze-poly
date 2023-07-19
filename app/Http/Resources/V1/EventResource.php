@@ -25,6 +25,7 @@ class EventResource extends JsonResource
             'visibility' => $this->visibility,
             'is_shareable' => $this->is_shareable,
             'image' => $this->getFirstMediaUrl('event-images'),
+            'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
 
