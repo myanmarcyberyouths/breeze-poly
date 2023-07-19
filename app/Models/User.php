@@ -60,8 +60,8 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Interest::class);
     }
 
-    public function events(): HasMany
+    public function events(): BelongsToMany
     {
-        return $this->hasMany(SaveEvent::class);
+        return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id');
     }
 }

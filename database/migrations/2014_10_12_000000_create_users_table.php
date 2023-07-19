@@ -15,10 +15,11 @@ return new class extends Migration {
             $table->string('name');
             $table->string('username', 32)->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->date('date_of_birth');
             $table->enum('pronoun', ['he', 'she', 'they']);
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
