@@ -42,7 +42,7 @@
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
         "APP_ROUTES_CACHE": "/tmp/routes.php",
         "APP_SERVICES_CACHE": "/tmp/services.php",
-        "CACHE_DRIVER": "array",
+        "CACHE_DRIVER": "redis",
         "REDIS_HOST": "factual-kingfish-37678.upstash.io",
         "REDIS_PASSWORD": "ca9174ed0ec8445389877bafd18b00e4",
         "REDIS_PORT": "37678",
