@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LaunchedEventController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
@@ -28,6 +29,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/events/saved', [EventSaveController::class, 'index']);
     Route::post('/events/{event}/save', [EventSaveController::class, 'store']);
     Route::post('/events/{event}/un-save', [EventSaveController::class, 'destroy']);
+
+    Route::get('/events/launched', LaunchedEventController::class);
 });
 
 

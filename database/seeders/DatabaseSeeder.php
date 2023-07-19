@@ -15,13 +15,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            EventSeeder::class,
             IntrestSeeder::class,
         ]);
+
         User::factory()->count(10)
             ->hasAttached(
                 Interest::all()->random(3),
             )
             ->create();
+
+        $this->call([
+            EventSeeder::class,
+        ]);
     }
 }

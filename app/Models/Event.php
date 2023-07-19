@@ -25,6 +25,7 @@ class Event extends Model implements HasMedia
         'information',
         'visibility',
         'is_shareable',
+        'user_id',
     ];
 
     protected $casts = [
