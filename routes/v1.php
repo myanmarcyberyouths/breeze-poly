@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
 use App\Http\Controllers\Api\V1\EventController;
+use App\Http\Controllers\EventSaveController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,12 +24,11 @@ Route::middleware('auth:api')->group(function () {
 
         Route::post('/sign-out', [AuthController::class, 'logout']);
     });
-    
-    Route::group(['prefix' => 'events'], function () {
-        Route::post('save',[EventController::class,'save']);
-    });
 
+    Route::get('/events/saved', [EventSaveController::class, 'index']);
+    Route::post('/events/{event}/save', [EventSaveController::class, 'store']);
+    Route::post('/events/{event}/un-save', [EventSaveController::class, 'destroy']);
 });
 
-Route::apiResource('/events', EventController::class);
 
+Route::apiResource('/events', EventController::class);

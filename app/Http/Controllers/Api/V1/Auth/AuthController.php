@@ -17,8 +17,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-
             $data = $request->validated();
+
             $data['password'] = Hash::make($data['password']);
             $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
             $data['username'] = 'user_' . time();
@@ -36,7 +36,7 @@ class AuthController extends Controller
                 'access_token' => $token,
             ]);
         } catch (\Exception $exception) {
-            return json_response(Response::HTTP_INTERNAL_SERVER_ERROR, 'Something went wrong');
+            return json_response(Response::HTTP_INTERNAL_SERVER_ERROR, $exception);
         }
     }
 

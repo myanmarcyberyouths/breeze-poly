@@ -25,13 +25,12 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:20',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed',
             'date_of_birth' => 'required|date_format:d-m-Y',
             'pronoun' => 'required|in:he,she,they',
             'interests' => 'required|array',
-            'profile_image' => ['required',new Base64ValidationRule()],
+            'profile_image' => ['required', new Base64ValidationRule()],
         ];
     }
 }
