@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\LaunchedEventController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
 use App\Http\Controllers\Api\V1\EventController;
-use App\Http\Controllers\EventSaveController;
+use App\Http\Controllers\Api\V1\EventSaveController;
+use App\Http\Controllers\Api\V1\LaunchedEventController;
+use App\Http\Controllers\Api\V1\SuggestionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,6 +37,7 @@ Route::middleware('auth:api')->group(function () {
 
 
         Route::get('/events/launched', LaunchedEventController::class);
+        Route::get('/suggestions', SuggestionController::class);
     });
 
 });
