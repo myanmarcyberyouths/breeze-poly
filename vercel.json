@@ -1,6 +1,8 @@
 {
     "version": 2,
-    "regions": ["sin1"],
+    "regions": [
+        "sin1"
+    ],
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.6.0"
@@ -14,9 +16,17 @@
         {
             "src": "/api/(.*)",
             "dest": "/api/index.php"
+        },
+        {
+            "src": "/build(.*)",
+            "dest": "/public/assets/"
+        },
+        {
+            "src": "/favicon/(.*)",
+            "dest": "/public/favicon/"
         }
     ],
-    "outputDirectory": "public/build",
+    "outputDirectory": "public",
     "env": {
         "APP_NAME": "Breeze",
         "APP_ENV": "production",
