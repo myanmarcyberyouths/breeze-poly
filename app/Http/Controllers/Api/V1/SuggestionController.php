@@ -33,12 +33,13 @@ class SuggestionController extends Controller
 
         // request to the suggestion service
         $response = Http::suggestion()->post(
-            '',
+            '/suggestion',
             data: [
                 'events' => $events,
                 'interests' => $interests,
             ]
         );
+
 
         $suggestedEvents = collect($response->json())
             ->map(fn($suggestion) => $suggestion['event'])

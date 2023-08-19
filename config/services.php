@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+     * Services of Breeze Microservices
+     * */
+    'breeze' => [
+        'suggestion' => env('SUGGESTION_API_URL'),
+    ]
+
 ];
