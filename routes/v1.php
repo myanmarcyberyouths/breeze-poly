@@ -9,6 +9,7 @@ use App\Http\Controllers\EventSaveController;
 use Illuminate\Support\Facades\Route;
 
 
+// User Authenticated Routes
 Route::prefix('users')->group(function () {
     Route::post('/validate-email', [EmailValidationController::class, 'validateEmail']);
     Route::post('/validate-profile-image', [EmailValidationController::class, 'validateProfileImage']);
@@ -18,6 +19,7 @@ Route::prefix('users')->group(function () {
     Route::post('/sign-in', [AuthController::class, 'login']);
 });
 
+
 Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'users'], function () {
@@ -26,11 +28,16 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/sign-out', [AuthController::class, 'logout']);
     });
 
-    Route::get('/events/saved', [EventSaveController::class, 'index']);
-    Route::post('/events/{event}/save', [EventSaveController::class, 'store']);
-    Route::post('/events/{event}/un-save', [EventSaveController::class, 'destroy']);
 
-    Route::get('/events/launched', LaunchedEventController::class);
+    Route::prefix('events')->group(function () {
+        Route::get('/events/saved', [EventSaveController::class, 'index']);
+        Route::post('/events/{event}/save', [EventSaveController::class, 'store']);
+        Route::post('/events/{event}/un-save', [EventSaveController::class, 'destroy']);
+
+
+        Route::get('/events/launched', LaunchedEventController::class);
+    });
+
 });
 
 
