@@ -31,9 +31,9 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::prefix('events')->group(function () {
-        Route::get('/events/saved', [EventSaveController::class, 'index']);
-        Route::post('/events/{event}/save', [EventSaveController::class, 'store']);
-        Route::post('/events/{event}/un-save', [EventSaveController::class, 'destroy']);
+        Route::get('/saved', [EventSaveController::class, 'index']);
+        Route::post('/{event}/save', [EventSaveController::class, 'store']);
+        Route::post('/{event}/un-save', [EventSaveController::class, 'destroy']);
 
 
         Route::get('/events/launched', LaunchedEventController::class);
