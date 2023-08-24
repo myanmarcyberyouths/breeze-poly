@@ -34,9 +34,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/saved', [EventSaveController::class, 'index']);
         Route::post('/{event}/save', [EventSaveController::class, 'store']);
         Route::post('/{event}/un-save', [EventSaveController::class, 'destroy']);
+        Route::get('/launched', LaunchedEventController::class);
 
-
-        Route::get('/events/launched', LaunchedEventController::class);
         Route::get('/suggestions', SuggestionController::class);
     });
 
