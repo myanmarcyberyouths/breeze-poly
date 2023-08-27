@@ -37,9 +37,9 @@ class Event extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id');
-    }
+//    public function users(): BelongsToMany
+//    {
+//        return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id');
+//    }
 
 }

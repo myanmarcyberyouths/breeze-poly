@@ -27,7 +27,6 @@ class EventFactory extends Factory
             'information' => fake()->realText(200),
             'visibility' => collect(['public', 'private', 'unlisted'])->random(),
             'is_shareable' => fake()->boolean(),
-            'user_id' => User::factory()->create(),
         ];
     }
 }

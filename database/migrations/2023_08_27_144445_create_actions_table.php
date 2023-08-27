@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('actions', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->unique();
+            $table->string('type');
             $table->timestamps();
         });
     }

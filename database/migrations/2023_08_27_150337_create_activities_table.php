@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('action_id');
             $table->foreignId('user_id');
-            $table->foreignId('post_id');
+            $table->foreignId('event_id');
             $table->timestamps();
         });
     }

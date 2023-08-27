@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\EventSaveController;
 use App\Http\Controllers\Api\V1\LaunchedEventController;
 use App\Http\Controllers\Api\V1\SuggestionController;
+use App\Http\Controllers\Api\V1\UserActivityFeedController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/me', [AuthController::class, 'getAuthUser']);
+        Route::get('/me/activities', UserActivityFeedController::class);
 
         Route::post('/sign-out', [AuthController::class, 'logout']);
     });
