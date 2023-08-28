@@ -16,7 +16,6 @@ use App\Http\Controllers\Api\V1\UserActivityFeedController;
 use Illuminate\Support\Facades\Route;
 
 
-// User Authenticated Routes
 Route::prefix('users')->group(function () {
     Route::post('/validate-email', [EmailValidationController::class, 'validateEmail']);
     Route::post('/validate-profile-image', [EmailValidationController::class, 'validateProfileImage']);
