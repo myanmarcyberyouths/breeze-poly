@@ -28,7 +28,7 @@ class UserActivityFeedController extends Controller
             ->with('action')
             ->with('event', function (BelongsTo $query) {
                 return $query->with('repost', function (HasOne $query) {
-                    return $query->with('event');
+                    return $query->with('event', fn(BelongsTo $query) => $query->with('user'));
                 });
             })
             ->latest('id')
