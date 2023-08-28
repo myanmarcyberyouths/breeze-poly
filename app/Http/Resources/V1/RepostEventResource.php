@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\V1;
 
-use App\Http\Resources\V1\EventResource;
-use App\Http\Resources\V1\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +16,7 @@ class RepostEventResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'content' => $this->content,
             'event' => new EventResource($this->whenLoaded('event')),
         ];
     }

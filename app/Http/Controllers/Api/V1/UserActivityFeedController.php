@@ -37,6 +37,7 @@ class UserActivityFeedController extends Controller
             ->latest('id')
             ->get();
 
-        return UserActivityFeedResource::collection($activities);
+        return response()->json($activities);
+//        return UserActivityFeedResource::collection($activities);
     }
 }
