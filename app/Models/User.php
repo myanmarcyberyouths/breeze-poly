@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Overtrue\LaravelFavorite\Traits\Favoriter;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -19,6 +20,7 @@ class User extends Authenticatable implements HasMedia
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
     use InteractsWithMedia;
+    use Favoriter;
 
     /**
      * The attributes that are mass assignable.

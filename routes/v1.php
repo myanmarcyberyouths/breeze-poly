@@ -3,12 +3,14 @@
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
+use App\Http\Controllers\Api\V1\EventCommentController;
 use App\Http\Controllers\Api\V1\EventController;
+use App\Http\Controllers\Api\V1\EventDisLikeController;
+use App\Http\Controllers\Api\V1\EventLikeController;
 use App\Http\Controllers\Api\V1\EventSaveController;
 use App\Http\Controllers\Api\V1\LaunchedEventController;
 use App\Http\Controllers\Api\V1\SuggestionController;
 use App\Http\Controllers\Api\V1\UserActivityFeedController;
-use App\Http\Controllers\EventCommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,6 +41,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/{event}/un-save', [EventSaveController::class, 'destroy']);
         Route::get('/launched', LaunchedEventController::class);
         Route::get('/{event}/comments', EventCommentController::class);
+
+        Route::get('/{event}/like', EventLikeController::class);
+        Route::get('/{event}/dislike', EventDisLikeController::class);
 
         Route::get('/suggestions', SuggestionController::class);
     });
