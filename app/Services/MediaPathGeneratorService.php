@@ -5,7 +5,7 @@ namespace App\Services;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
-class MediaPathGenerator implements PathGenerator
+class MediaPathGeneratorService implements PathGenerator
 {
 
     public function getPath(Media $media): string
