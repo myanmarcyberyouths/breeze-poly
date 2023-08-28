@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
+use App\Http\Controllers\Api\V1\CommentDisLikeController;
+use App\Http\Controllers\Api\V1\CommentLikeController;
 use App\Http\Controllers\Api\V1\EventCommentController;
 use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\EventDisLikeController;
@@ -44,6 +46,9 @@ Route::middleware('auth:api')->group(function () {
 
         Route::get('/{event}/like', EventLikeController::class);
         Route::get('/{event}/dislike', EventDisLikeController::class);
+
+        Route::get('/{event}/comments/{comment}/like', CommentLikeController::class);
+        Route::get('/{event}/comments/{comment}/dislike', CommentDisLikeController::class);
 
         Route::get('/suggestions', SuggestionController::class);
     });

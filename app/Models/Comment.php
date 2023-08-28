@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Comment extends Model
 {
     use HasFactory, HasRecursiveRelationships;
+    use Favoriteable;
 
     protected $fillable = [
         'comment',
