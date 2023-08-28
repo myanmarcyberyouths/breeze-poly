@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserActivityFeedResource;
 use App\Models\Activity;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserActivityFeedController extends Controller
 {
@@ -26,11 +27,13 @@ class UserActivityFeedController extends Controller
             ->with('user')
             ->with('action')
             ->with('event', function (BelongsTo $query) {
-                return $query->with('user');
+                return $query->with('repost', function (HasOne $query) {
+                    return $query->with('event');
+                });
             })
             ->latest('id')
             ->get();
 
-        return response()->json(UserActivityFeedResource::collection($activities));
+        return UserActivityFeedResource::collection($activities);
     }
 }

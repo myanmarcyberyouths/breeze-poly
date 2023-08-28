@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Http\Resources\RepostEventResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +27,7 @@ class EventResource extends JsonResource
             'is_shareable' => $this->is_shareable,
             'image' => $this->getFirstMediaUrl('event-images'),
             'user' => new UserResource($this->whenLoaded('user')),
+            'repost' => new RepostEventResource($this->whenLoaded('repost')),
         ];
     }
 

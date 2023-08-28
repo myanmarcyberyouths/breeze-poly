@@ -42,4 +42,10 @@ class Event extends Model implements HasMedia
 //        return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id');
 //    }
 
+
+    public function repost(): HasOne
+    {
+        return $this->hasOne(Repost::class, 'original_event_id');
+    }
+
 }
