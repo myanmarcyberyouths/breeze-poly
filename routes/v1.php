@@ -13,8 +13,8 @@ use App\Http\Controllers\Api\V1\EventSaveController;
 use App\Http\Controllers\Api\V1\LaunchedEventController;
 use App\Http\Controllers\Api\V1\SuggestionController;
 use App\Http\Controllers\Api\V1\UserActivityFeedController;
-use App\Http\Controllers\UserFollowController;
-use App\Http\Controllers\UserUnFollowController;
+use App\Http\Controllers\Api\V1\UserFollowController;
+use App\Http\Controllers\Api\V1\UserUnFollowController;
 use Illuminate\Support\Facades\Route;
 
 
