@@ -61,3 +61,4 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::apiResource('/events', EventController::class);
+

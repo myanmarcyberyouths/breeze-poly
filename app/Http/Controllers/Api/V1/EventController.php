@@ -19,7 +19,7 @@ class EventController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['show']);
     }
 
     /**
@@ -27,9 +27,14 @@ class EventController extends Controller
      */
     public function index()
     {
-        $page = request()->get('page', 1);
-        $events = Event::with('user')->latest()->paginate(5);
-        return Cache::remember("events_page_$page", 3, fn() => EventResource::collection($events));
+//        $page = request()->get('page', 1);
+//        $events = Event::with('user')->latest()->paginate(5);
+//        return Cache::remember("events_page_$page", 3, fn() => EventResource::collection($events));
+
+
+        return response()->json([
+            auth()->user()->followings()->with('user', fn($query) => $query->with('activities'))->get()
+        ]);
     }
 
     /**
