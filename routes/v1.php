@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\V1\EventSaveController;
 use App\Http\Controllers\Api\V1\LaunchedEventController;
 use App\Http\Controllers\Api\V1\SuggestionController;
 use App\Http\Controllers\Api\V1\UserActivityFeedController;
+use App\Http\Controllers\UserFollowController;
+use App\Http\Controllers\UserUnFollowController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,6 +35,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/me/activities', UserActivityFeedController::class);
 
         Route::post('/sign-out', [AuthController::class, 'logout']);
+
+        Route::post('/{user}/follow', UserFollowController::class);
+        Route::post('/{user}/unfollow', UserUnFollowController::class);
     });
 
 
