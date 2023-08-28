@@ -43,11 +43,11 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/launched', LaunchedEventController::class);
         Route::get('/{event}/comments', EventCommentController::class);
 
-        Route::get('/{event}/like', EventLikeController::class);
-        Route::get('/{event}/dislike', EventDisLikeController::class);
+        Route::post('/{event}/like', EventLikeController::class);
+        Route::post('/{event}/dislike', EventDisLikeController::class);
 
-        Route::get('/{event}/comments/{comment}/like', CommentLikeController::class);
-        Route::get('/{event}/comments/{comment}/dislike', CommentDisLikeController::class);
+        Route::post('/{event}/comments/{comment}/like', CommentLikeController::class);
+        Route::post('/{event}/comments/{comment}/dislike', CommentDisLikeController::class);
 
         Route::get('/suggestions', SuggestionController::class);
     });
