@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use LaravelIdea\Helper\Overtrue\LaravelFollow\_IH_Followable_QB;
-use Overtrue\LaravelFavorite\Traits\Favoriter;
-use Overtrue\LaravelFollow\Followable as FollowableModel;
 use Overtrue\LaravelFollow\Traits\Followable;
 use Overtrue\LaravelFollow\Traits\Follower;
+use Overtrue\LaravelLike\Traits\Liker;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
@@ -23,7 +21,7 @@ class User extends Authenticatable implements HasMedia
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
     use InteractsWithMedia;
-    use Favoriter;
+    use Liker;
     use Follower, Followable;
 
     /**

@@ -13,10 +13,10 @@ class EventDisLikeController extends Controller
      */
     public function __invoke(Event $event)
     {
-        auth()->user()->unfavorite($event);
+        auth()->user()->unlike($event);
         return new JsonResponse([
             'message' => 'Event disliked successfully',
-            'data' => $event->favoriters()->count()
+            'data' => $event->likers()->count()
         ]);
     }
 }

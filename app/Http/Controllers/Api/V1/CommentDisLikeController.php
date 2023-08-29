@@ -13,11 +13,11 @@ class CommentDisLikeController extends Controller
      */
     public function __invoke(Event $event, Comment $comment)
     {
-        auth()->user()->unfavorite($comment);
+        auth()->user()->unlike($comment);
 
         return response()->json([
             'message' => 'Comment disliked successfully',
-            'data' => $comment->favoriters()->count()
+            'data' => $comment->likers()->count()
         ]);
     }
 }

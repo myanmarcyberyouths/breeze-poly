@@ -13,11 +13,11 @@ class CommentLikeController extends Controller
      */
     public function __invoke(Event $event, Comment $comment)
     {
-        auth()->user()->favorite($comment);
+        auth()->user()->like($comment);
 
         return response()->json([
             'message' => 'Comment liked successfully',
-            'data' => $comment->favoriters()->count()
+            'data' => $comment->likers()->count()
         ]);
     }
 }
