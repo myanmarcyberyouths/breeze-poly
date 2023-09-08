@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 
-class UserUnFollowController extends Controller
+class UserFollowController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(User $user)
     {
-        auth()->user()->unfollow($user);
+        auth()->user()->follow($user);
 
         return response()->json([
-            'message' => 'User unfollowed successfully'
+            'message' => 'User followed successfully'
         ]);
     }
 }

@@ -3,18 +3,18 @@
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
+use App\Http\Controllers\Api\V1\AuthenicatedUserAactivities\UserActivityFeedController;
 use App\Http\Controllers\Api\V1\CommentDisLikeController;
 use App\Http\Controllers\Api\V1\CommentLikeController;
-use App\Http\Controllers\Api\V1\EventCommentController;
-use App\Http\Controllers\Api\V1\EventController;
-use App\Http\Controllers\Api\V1\EventDisLikeController;
-use App\Http\Controllers\Api\V1\EventLikeController;
-use App\Http\Controllers\Api\V1\EventSaveController;
-use App\Http\Controllers\Api\V1\LaunchedEventController;
+use App\Http\Controllers\Api\V1\Events\EventCommentController;
+use App\Http\Controllers\Api\V1\Events\EventController;
+use App\Http\Controllers\Api\V1\Events\EventDisLikeController;
+use App\Http\Controllers\Api\V1\Events\EventLikeController;
+use App\Http\Controllers\Api\V1\Events\EventSaveController;
+use App\Http\Controllers\Api\V1\Events\LaunchedEventController;
 use App\Http\Controllers\Api\V1\SuggestionController;
-use App\Http\Controllers\Api\V1\UserActivityFeedController;
-use App\Http\Controllers\Api\V1\UserFollowController;
-use App\Http\Controllers\Api\V1\UserUnFollowController;
+use App\Http\Controllers\Api\V1\Users\UserFollowController;
+use App\Http\Controllers\Api\V1\Users\UserUnFollowController;
 use Illuminate\Support\Facades\Route;
 
 

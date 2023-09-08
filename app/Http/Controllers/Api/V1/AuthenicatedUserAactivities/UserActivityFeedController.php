@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\AuthenicatedUserAactivities;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\UserActivityFeedResource;
 use App\Models\Activity;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;

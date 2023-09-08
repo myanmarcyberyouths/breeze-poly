@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Events;
 
 
 use App\Http\Controllers\Controller;
@@ -21,15 +21,8 @@ class EventController extends Controller
         $this->middleware('auth:api')->except(['show']);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-//        $page = request()->get('page', 1);
-//        $events = Event::with('user')->latest()->paginate(5);
-//        return Cache::remember("events_page_$page", 3, fn() => EventResource::collection($events));
-
         $events = auth()
             ->user()
             ->followings()
