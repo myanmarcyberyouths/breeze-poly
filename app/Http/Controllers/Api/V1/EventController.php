@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Api\V1;
 
 
-use App\Models\Event;
-use App\Models\SaveEvent;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\V1\EventRequest;
-use App\Http\Resources\V1\EventResource;
-use App\Http\Requests\V1\EventSaveRequest;
 use App\Http\Requests\V1\EventUpdateRequest;
-use App\Models\User;
+use App\Http\Resources\V1\EventResource;
+use App\Models\Event;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Cache;
 
 class EventController extends Controller
 {
@@ -31,10 +30,34 @@ class EventController extends Controller
 //        $events = Event::with('user')->latest()->paginate(5);
 //        return Cache::remember("events_page_$page", 3, fn() => EventResource::collection($events));
 
+        $events = auth()
+            ->user()
+            ->followings()
+            ->with(
+                'followable',
+                fn(Builder $builder) => $builder->with(
+                    'activities',
+                    fn(Builder $builder) => $builder->with('action')
+                        ->with('user')
+                        ->with('event', function (BelongsTo $query) {
+                            return $query
+                                ->with('user')
+                                ->with('repost', function (HasOne $query) {
+                                    return $query->with(
+                                        'event',
+                                        fn(BelongsTo $query) => $query->with('user')
+                                    );
+                                });
+                        })
+                        ->latest('id')
+                )
+            )
+            ->get();
+        $mapped = collect($events)->map(function ($item) {
+            return $item['followable']['activities'];
+        })->flatten(1)->sortByDesc('id')->values();
 
-        return response()->json([
-            auth()->user()->followings()->with('user', fn($query) => $query->with('activities'))->get()
-        ]);
+        return response()->json($mapped);
     }
 
     /**
