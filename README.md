@@ -15,8 +15,8 @@ composer setup
 ## Docker Setup
 
 ```bash
-docker-compose build
-docker exec breeze_app composer setup
+container-compose build
+container exec breeze_app composer setup
 ```
 
 # Exposing Server
