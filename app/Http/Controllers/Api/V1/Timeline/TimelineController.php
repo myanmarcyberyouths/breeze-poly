@@ -21,23 +21,25 @@ class TimelineController extends Controller
                     'activities',
                     fn(Builder $builder) => $builder->with('action')
                         ->with('user')
-                        ->with('event', function (BelongsTo $query) {
-                            return $query
-                                ->with('user')
-                                ->with('repost', function (HasOne $query) {
-                                    return $query->with(
-                                        'event',
-                                        fn(BelongsTo $query) => $query->with('user')
-                                    );
-                                });
-                        })
+                        ->with('event', fn(BelongsTo $query) => $query
+                            ->with('user')
+                            ->with('repost', function (HasOne $query) {
+                                return $query->with(
+                                    'event',
+                                    fn(BelongsTo $query) => $query->with('user')
+                                );
+                            }))
                         ->latest('id')
                 )
             )
             ->get();
-        $mapped = collect($events)->map(function ($item) {
-            return $item['followable']['activities'];
-        })->flatten(1)->sortByDesc('id')->values();
+
+        $mapped = collect($events)
+            ->map(fn($item) => $item['followable']['activities'])
+            ->flatten(1)
+            ->sortByDesc('id')
+            ->values();
+
 
         return response()->json($mapped);
     }
