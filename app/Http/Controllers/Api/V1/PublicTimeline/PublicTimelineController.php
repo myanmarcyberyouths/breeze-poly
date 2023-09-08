@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Timeline;
+namespace App\Http\Controllers\Api\V1\PublicTimeline;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\EventResource;

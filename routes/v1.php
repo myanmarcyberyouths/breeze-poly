@@ -4,15 +4,15 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\EmailValidationController;
 use App\Http\Controllers\Api\V1\Auth\InterestController;
 use App\Http\Controllers\Api\V1\AuthenicatedUserAactivities\UserActivityFeedController;
-use App\Http\Controllers\Api\V1\CommentDisLikeController;
-use App\Http\Controllers\Api\V1\CommentLikeController;
+use App\Http\Controllers\Api\V1\Comments\CommentDisLikeController;
+use App\Http\Controllers\Api\V1\Comments\CommentLikeController;
 use App\Http\Controllers\Api\V1\Events\EventCommentController;
-use App\Http\Controllers\Api\V1\Events\EventController;
 use App\Http\Controllers\Api\V1\Events\EventDisLikeController;
 use App\Http\Controllers\Api\V1\Events\EventLikeController;
 use App\Http\Controllers\Api\V1\Events\EventSaveController;
 use App\Http\Controllers\Api\V1\Events\LaunchedEventController;
-use App\Http\Controllers\Api\V1\SuggestionController;
+use App\Http\Controllers\Api\V1\Suggestions\SuggestionController;
+use App\Http\Controllers\Api\V1\Timeline\TimelineController;
 use App\Http\Controllers\Api\V1\Users\UserFollowController;
 use App\Http\Controllers\Api\V1\Users\UserUnFollowController;
 use Illuminate\Support\Facades\Route;
@@ -60,5 +60,5 @@ Route::middleware('auth:api')->group(function () {
 });
 
 
-Route::apiResource('/events', EventController::class);
+Route::middleware('auth:api')->get('/events', TimelineController::class);
 
