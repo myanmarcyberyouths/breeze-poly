@@ -19,6 +19,12 @@ container-compose build
 container exec breeze_app composer setup
 ```
 
+# Test
+
+```bash
+composer test
+```
+
 # Exposing Server
 
 ```bash
