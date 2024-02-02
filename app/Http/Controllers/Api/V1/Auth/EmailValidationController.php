@@ -11,7 +11,7 @@ class EmailValidationController extends Controller
 {
     public function validateEmail(EmailRequest $request)
     {
-        return json_response(Response::HTTP_OK, "Email is valid");
+        return json_response(Response::HTTP_OK, 'Email is valid');
     }
 
     public function validateProfileImage(ProfileImageRequest $request)
