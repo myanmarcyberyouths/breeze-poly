@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -30,7 +31,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if ($request->is('v1/events/*')) {
-                return json_response(404, 'Resource not found', null)->setStatusCode(404);
+                return json_response(Response::HTTP_NOT_FOUND, 'Resource not found', null)->setStatusCode(Response::HTTP_NOT_FOUND);
             }
             return null;
         });
